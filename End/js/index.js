@@ -5,7 +5,7 @@ $.ajaxPrefilter( function(options, originalOptions, jqXHR){
 var g_Location;
 (function () {
     "use strict";
-    var currentLocation = "/#";
+    var currentLocation = "";
     var app = WinJS.Application;
     var nav = WinJS.Navigation;
     var sched = WinJS.Utilities.Scheduler;
@@ -30,7 +30,7 @@ var g_Location;
         },
         render: function(){
             var that = this;
-            
+        
             var HomePage = WinJS.UI.Pages.get('/pages/home/home.html');
 
             //Load up stations from server
@@ -44,7 +44,6 @@ var g_Location;
                     $("#progressSymbol").hide();
                 }
             });
-            
             that.$el[0].innerHTML ="";
             var hp = new HomePage(that.el, stations);
             hp.element.style.width = "100%";
@@ -54,7 +53,7 @@ var g_Location;
         }
     });
 
-var StationView = Backbone.View.extend({
+    var StationView = Backbone.View.extend({
         initialize: function(){
             this.render();
         },
@@ -73,7 +72,8 @@ var StationView = Backbone.View.extend({
                 success: function(){
 
                     //show pivot view for this station
-                    $("#progressSymbol").hide();
+                    ///render this view after we've loaded the data since the user already has
+                    //useful data in front of them
                     that.$el[0].innerHTML ="";
                     var hp = new StationPage(that.el, station);
                     hp.element.style.width = "100%";
@@ -95,24 +95,30 @@ var StationView = Backbone.View.extend({
     var AppRouter = Backbone.Router.extend({
         routes: {
             '': 'home',
+            //:id will the station abbrevation
             'station/:id': 'station'
         }
     });
 
+    //create the router
     var router = new AppRouter();
 
+    //create the event handlers for the router
     router.on('route:home', function(){
-        $("#progressSymbol").show();
-        currentLocation = "/#";
+        //create a new home view and place it into the contenthost
+        currentLocation = "";
         var home_view = new HomeView({ el: $("#contenthost") });
     });
 
     router.on('route:station', function(id){
-        $("#progressSymbol").show();
         console.log('Station route hit');
-        currentLocation = "/#/station/" + id;
-        var home_view = new StationView({ el: $("#contenthost"), id: id });
+        currentLocation = "station/" + id;
+        var station_view = new StationView({ el: $("#contenthost"), id: id });
     });
+
+//END ROUTES
+
+// BEGIN WINJS INIT
 
     app.addEventListener("ready", function (args) {
 
@@ -124,21 +130,16 @@ var StationView = Backbone.View.extend({
                     g_Location = position.coords;
 
                     ui.processAll().then(function() {
-
-                    //NAV BAR
-                    var navBar = document.getElementById('navBar').winControl;
-
-                    //register the navbar show button
-                    $("#toggleNavBar").click(function(evt){
-                        navBar.show();
-                    });
-
+                        
                     $("#homeButton").click(function(evt){
-                        window.location = '/#';
+                        router.navigate("", {trigger: true, replace: true});
                     });
 
                     $("#refreshButton").click(function(evt){
-                        window.location.assign(currentLocation);
+                        // need to null out Backbone.history.fragement because 
+                        // navigate method will ignore when it is the same as newFragment
+                        Backbone.history.fragment = null;
+                        router.navigate(currentLocation, {trigger: true, replace: true});
                     });
 
                     }).then(function(){
@@ -146,6 +147,7 @@ var StationView = Backbone.View.extend({
                     }).then(function(){
                         ui.enableAnimations();
 
+                        //Necessary for bookmarkable URLS
                         Backbone.history.start();
                     });
                 }, function(error) {
@@ -158,19 +160,6 @@ var StationView = Backbone.View.extend({
         }
         
     });
-
-
-    /**
-
-    app.oncheckpoint = function (args) {
-        // TODO: This application is about to be suspended. Save any state
-        // that needs to persist across suspensions here. If you need to 
-        // complete an asynchronous operation before your application is 
-        // suspended, call args.setPromise().
-        app.sessionState.history = nav.history;
-    };
-    
-    **/
     app.start();
 
 })();

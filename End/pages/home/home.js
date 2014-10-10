@@ -61,34 +61,25 @@
         }
         window.Stations.push(model);
     }
+   
     WinJS.UI.Pages.define("/pages/home/home.html", {
-        init: function(){
-            
-        },
-        ready:function(element, stations){
-
+    init: function(){
+        
+    },
+    ready:function(element, stations){
+            //clear out any stale station data in the bindable list
+            console.log('ready-' + stations);
             if(window.Stations){
                 window.Stations.forEach(function(){
                     window.Stations.pop();
                 });
             }
+            //fill the list up with the new data
             for(var i in stations.models){
+                console.log('added');
                 addStationToList(stations.models[i]);
             }
 
-            //add click handler to each list view tiem
-            var thatStations = stations;
-            var listView = $("#homePivotListView")[0];
-            if(listView){
-                listView.addEventListener("iteminvoked", function (evt) {
-                var index = evt.detail.itemIndex;
-
-                window .location = '#/station/' + thatStations.models[index].attributes.abbr;
-
-                });
-            }
-
-            
 
             Microsoft.Maps.loadModule('Microsoft.Maps.Themes.BingTheme', { callback: function(){     
 
@@ -96,7 +87,7 @@
 
                     map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), 
                                 {
-                                    credentials:"AqKaHOhFANG1MfClHVrtzvqfb_IuYutvB6NgNcsgMW5Ee_EpPd3a5q-uOUt3Mr0m",
+                                    credentials:"<YOUR MAPS API KEY>",
                                     center: currentLoc,
                                     mapTypeId: Microsoft.Maps.MapTypeId.road,
                                     theme: new Microsoft.Maps.Themes.BingTheme(),
@@ -113,19 +104,24 @@
                     }
                 }
             });
-        
-            stations.on("add", function(model){
+            //in case the data comes after this page is loaded, push it into the view model
 
-                
+            stations.on("add", function(model){
                 addStationToList(model);
                 addStationToMap(model);
-                        
-
-
-                
             });
 
-            
+            //add click handler to the list view items
+            var thatStations = stations;
+            var listView = $("#homePivotListView")[0];
+            if(listView){
+                listView.addEventListener("iteminvoked", function (evt) {
+                    var index = evt.detail.itemIndex;
+                    //navigate to the Station route with the :id being the station abbreviation
+                    window.location = '#/station/' + thatStations.models[index].attributes.abbr;
+                });
+            }
+
         }
     });
 
