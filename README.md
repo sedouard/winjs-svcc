@@ -1,4 +1,4 @@
-Building a Single Page Web App With WinJS
+Building a Single Page Web App With WinJS + BackboneJS
 ==========
 
 # Introduction
