@@ -29,6 +29,8 @@ It's dark because we are pulling the dark theme css file from Winjs.
 
 Currently we have a skeleton of an application, it includes all of the require libraries, including **[jquery](http://jquery.com)** **[backbone](http://backbonejs.com)** and **[winjs](http://try.buildwinjs.com)**.
 
+You may notice you'll be prompted to give your location. Go ahead and give the applciation permission.
+
 # The Content Host Div
 
 Fundamental to any single page application is that there is a main div in which all pages of the application are rendered. You can sort of think of the structure of the application like this:
