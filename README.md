@@ -726,13 +726,14 @@ Although this appears to hit the same route as the Stations model collection, we
     //create the event handlers for the router
     router.on('route:home', function(){
         //create a new home view and place it into the contenthost
+        currentLocation = "";
         var home_view = new HomeView({ el: $("#contenthost") });
     });
 
     router.on('route:station', function(id){
         $("#progressSymbol").show();
         console.log('Station route hit');
-        currentLocation = "/#/station/" + id;
+        currentLocation = "station/" + id;
         var home_view = new StationView({ el: $("#contenthost"), id: id });
     });
 
