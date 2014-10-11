@@ -5,7 +5,7 @@ Building a Single Page Web App With WinJS + BackboneJS
 
 It’s not commonly known that WinJS was born out of the browser, and then went to Windows 8. Since then WinJS has been released for Windows 8.1, Xbox One and Windows Phone 8.1. 
 
-Earlier this year WinJS has been open sourced with the mission of running on any browser of your choice. In this talk, we’ll go over how WinJS provides developers with a distinctive set of high performance, polished UI controls and the cohesive set of components and infrastructure it provides for your HTML5 web apps.
+In this talk, we’ll go over how WinJS provides developers with a distinctive set of high performance, polished UI controls and the cohesive set of components and infrastructure it provides for your HTML5 web apps.
 
 # Objective
 
@@ -898,7 +898,7 @@ $("#refreshButton").click(function(evt){
 
 ```
 
-The code above takes advantage of a convient variable we've added to our route handlers record the current location of the app. You could also use Backbone.history to get the last known url and just re-navigat to that as well. Now our home and refresh buttons are live.
+The code above takes advantage of a convenient variable we've added to our route handlers record the current location of the app. You could also use Backbone.history to get the last known url and just re-navigat to that as well. Now our home and refresh buttons are live.
 
 
 # Conclusion
