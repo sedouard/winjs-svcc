@@ -15,7 +15,7 @@
         },
         ready:function(element, stations){
 
-            
+            console.log('home page loaded!');
             //Define Home page here
 
             
