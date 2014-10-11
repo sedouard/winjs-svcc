@@ -340,7 +340,14 @@ WinJS.UI.Pages.define("/pages/home/home.html", {
         for(var i in stations.models){
             addStationToList(stations.models[i]);
         }
-	}
+    }
+    
+    //in case the data comes after this page is loaded, push it into the view model
+
+    stations.on("add", function(model){
+        addStationToList(model);
+        addStationToMap(model);
+    });
 });
 
 ```
