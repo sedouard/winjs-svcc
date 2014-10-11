@@ -395,7 +395,7 @@ As the comment suggests, we need a **Pivot**, **List View** and **Template**. Le
 <body>
 
 <div id="homePivot" data-win-control="WinJS.UI.Pivot" data-win-options="{ title: 'BartNOW', selectedIndex: 0 }" style=".win-pivot-headers{ font-size: 400% }">
-
+</div>
 
 
 </div>
