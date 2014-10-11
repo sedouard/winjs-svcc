@@ -108,8 +108,7 @@ var StationView = Backbone.View.extend({
 //ROUTES
     var AppRouter = Backbone.Router.extend({
         routes: {
-            '': 'home',
-            'station/:id': 'station'
+            '*action': 'home'
         }
     });
 
@@ -217,7 +216,6 @@ var HomeView = Backbone.View.extend({
             data: g_Location,
             success: function(){
                 
-                $("#progressSymbol").hide();
             }
         });
         
@@ -242,14 +240,14 @@ Now that we have our entire view, we need to create a **Backbone.Router** router
 //ROUTES
 var AppRouter = Backbone.Router.extend({
     routes: {
-        '': 'home'
+        '*action': 'home'
     }
 });
 
 
 ```
 
-This creates one route at **/** or just blank that we will call **home**. We can register an event when the browser hits this route by using the **router.on** function:
+This creates one route handler for any route and render a view we will call **home**. We can register an event when the browser hits this route by using the **router.on** function:
 
 ```js
 //END VIEWS 
@@ -272,7 +270,7 @@ router.on('route:home', function(){\
 
 ```
 
-Now runt the website and take a look at the console:
+Now run the website and take a look at the console:
 
 ![](ScreenShots/ss4.png)
 
