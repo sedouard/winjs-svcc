@@ -148,7 +148,7 @@ $.ajaxPrefilter( function(options, originalOptions, jqXHR){
 
 So what's actually happening here is that Backbone will make a REST api request to **http://bartnowapi.azurewebsites.net/api/stations** and treat the output of JSON from the API as a collection of objects. Because **/api/stations** returns an array this works out perfectly.
 
-Try doing a GET - **http://bartnowapi.azurewebites.net/api/stations** with a REST tool like **[Advanced Rest Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo)** and see the output you get:
+Try doing a GET - **http://bartnowapi.azurewebsites.net/api/stations** with a REST tool like **[Advanced Rest Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo)** and see the output you get:
 
 ![](ScreenShots/ss3.png)
 
