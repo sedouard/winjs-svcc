@@ -114,7 +114,35 @@ var StationView = Backbone.View.extend({
 
 //END ROUTES
 
-    app.start();
+    app.addEventListener("ready", function (args) {
+
+        //We need the current location of device.
+        //if we can't do it the app will just alert
+        if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(function(position){
+
+                    g_Location = position.coords;
+                    
+                    ui.processAll().then(function() {
+
+                    }).then(function(){
+                        return sched.requestDrain(sched.Priority.aboveNormal + 1);
+                    }).then(function(){
+                        ui.enableAnimations();
+
+                        //Necessary for bookmarkable URLS
+                        Backbone.history.start();
+                    });
+                }, function(error) {
+                    alert(error);
+                }
+            );
+        }
+        else{
+            alert('Could not get your location. BartNOW Requires your location to work');
+        }
+        
+    });
 
 })();
 
