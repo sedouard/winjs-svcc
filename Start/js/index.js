@@ -45,10 +45,11 @@ var StationView = Backbone.View.extend({
 //END VIEWS 
 
 //ROUTES
+    //ROUTES
     var AppRouter = Backbone.Router.extend({
         routes: {
-            '': 'home',
-            'station/:id': 'station'
+            //any request will hit this
+            '*action': 'home'
         }
     });
 
