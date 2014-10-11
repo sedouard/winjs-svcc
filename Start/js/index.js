@@ -55,6 +55,51 @@ var g_Location;
 
 //END ROUTES
 
+// BEGIN WINJS INIT
+
+    app.addEventListener("ready", function (args) {
+
+        //We need the current location of device.
+        //if we can't do it the app will just alert
+        if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(function(position){
+
+                    g_Location = position.coords;
+                    
+                    $("#homeButton").click(function(evt){
+                        router.navigate("", {trigger: true, replace: true});
+                    });
+                    
+                    $("#refreshButton").click(function(evt){
+                        // need to null out Backbone.history.fragement because 
+                        // navigate method will ignore when it is the same as newFragment
+                        Backbone.history.fragment = null;
+                        router.navigate(currentLocation, {trigger: true, replace: true});
+                    });
+                    
+                    
+                    ui.processAll().then(function() {
+
+                    }).then(function(){
+                        return sched.requestDrain(sched.Priority.aboveNormal + 1);
+                    }).then(function(){
+                        ui.enableAnimations();
+
+                        //Necessary for bookmarkable URLS
+                        Backbone.history.start();
+                    });
+                }, function(error) {
+                    alert(error);
+                }
+            );
+        }
+        else{
+            alert('Could not get your location. BartNOW Requires your location to work');
+        }
+        
+    });
     app.start();
 
 })();
+
+
