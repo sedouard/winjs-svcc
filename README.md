@@ -537,16 +537,8 @@ ready:function(element, stations){
                 console.log('added');
                 addStationToList(stations.models[i]);
             }
-
-            //in case the data comes after this page is loaded, push it into the view model
-
-            stations.on("add", function(model){
-
-                
-                addStationToList(model);
-            });
 			
-			//load map
+	    //load map
             Microsoft.Maps.loadModule('Microsoft.Maps.Themes.BingTheme', { callback: function(){     
 
                     var currentLoc = new Microsoft.Maps.Location(g_Location.latitude, g_Location.longitude);
@@ -571,8 +563,8 @@ ready:function(element, stations){
                 }
             });
 			
-			//The data may not come in by the time this function is executing. Put an event handler
-			//whenever we get new data
+	    //The data may not come in by the time this function is executing. Put an event handler
+	    //whenever we get new data
             stations.on("add", function(model){
 
                 
