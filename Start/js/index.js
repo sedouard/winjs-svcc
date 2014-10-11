@@ -66,18 +66,6 @@ var g_Location;
 
                     g_Location = position.coords;
                     
-                    $("#homeButton").click(function(evt){
-                        router.navigate("", {trigger: true, replace: true});
-                    });
-                    
-                    $("#refreshButton").click(function(evt){
-                        // need to null out Backbone.history.fragement because 
-                        // navigate method will ignore when it is the same as newFragment
-                        Backbone.history.fragment = null;
-                        router.navigate(currentLocation, {trigger: true, replace: true});
-                    });
-                    
-                    
                     ui.processAll().then(function() {
 
                     }).then(function(){
