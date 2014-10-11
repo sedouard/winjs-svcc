@@ -263,7 +263,7 @@ var AppRouter = Backbone.Router.extend({
 var router = new AppRouter();
 
 //create the event handler for the router
-router.on('route:home', function(){\
+router.on('route:home', function(){
 	//create a new home view and place it into the contenthost
     var home_view = new HomeView({ el: $("#contenthost") });
 });
