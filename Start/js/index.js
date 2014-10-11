@@ -33,7 +33,7 @@ var g_Location;
         }
     });
 
-var StationView = Backbone.View.extend({
+    var StationView = Backbone.View.extend({
         initialize: function(){
             this.render();
         },
