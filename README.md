@@ -114,6 +114,7 @@ var StationView = Backbone.View.extend({
 
 //END ROUTES
 
+//BEGIN WINJS INIT
     app.addEventListener("ready", function (args) {
 
         //We need the current location of device.
